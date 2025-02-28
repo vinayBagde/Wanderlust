@@ -27,7 +27,10 @@ app.use(express.json());
 
 app.use(methodOverride("_method"));
 
+app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "/public")));
 
+app.engine("ejs", ejsMate);
 
 app.get("/", (req, res) => {
   res.send("Hi! i'm root");
@@ -47,15 +50,25 @@ app.get("/", (req, res) => {
 //   res.send("successful testing");
 // });
 
-//index Route
+//index Route     ---READ
 app.get("/listings", async (req, res) => {
   const allListings = await Listing.find();
   res.render("listings/index.ejs", { allListings });
 });
 
-//New Route
+//New Route      ---CREATE
 app.get("/listings/new", (req, res) => {
   res.render("listings/new.ejs");
+});
+
+//Create Route
+app.post("/listings", async (req, res) => {
+  // let {title, description, price, country, location} = req.body;
+  // let listing = req.body.listing;
+  const newListing = new Listing(req.body.listing);
+  console.log(req.body.listing);
+  await newListing.save();
+  res.redirect("/listings");
 });
 
 //show Route
@@ -65,14 +78,7 @@ app.get("/listings/:id", async (req, res) => {
   res.render("listings/show.ejs", { listing });
 });
 
-//Create Route
-app.post("/listings", async (req, res) => {
-  // let {title, description, price, country, location} = req.body;
-  // let listing = req.body.listing;
-  const newListing = new Listing(req.body.listing);
-  await newListing.save();
-  res.redirect("/listings");
-});
+
 
 //Edit Route
 app.get("/listings/:id/edit", async (req, res) => {
@@ -84,6 +90,7 @@ app.get("/listings/:id/edit", async (req, res) => {
 //Update Route
 app.put("/listings/:id", async (req, res) => {
   let { id } = req.params;
+  console.log(req.body.listing);
   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
   res.redirect(`/listings/${id}`);
 });
