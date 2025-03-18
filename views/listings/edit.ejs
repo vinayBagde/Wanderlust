@@ -3,7 +3,12 @@
   <div class="row mt-3">
     <div class="col-8 offset-2">
       <h3>Edit your Listing</h3>
-      <form action="/listings/<%= listing._id%>?_method=PUT" method="POST">
+      <form
+        action="/listings/<%= listing._id%>?_method=PUT"
+        method="POST"
+        novalidate
+        class="needs-validation"
+      >
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
           <input
@@ -11,7 +16,9 @@
             name="listing[title]"
             value="<%= listing.title%>"
             class="form-control"
+            required
           />
+          <div class="valid-feedback">Title looks good!</div>
         </div>
 
         <div class="mb-3">
@@ -21,9 +28,11 @@
             id=""
             type="text"
             class="form-control"
+            required
           >
-<%= listing.description%></textarea
-          >
+           <%= listing.description%>
+          </textarea>
+          <div class="invalid-feedback">Please enter a short description</div>
         </div>
 
         <div class="mb-3">
@@ -33,7 +42,9 @@
             name="listing[imgage][url]"
             value="<%= listing.image.url%>"
             class="form-control"
+            required
           />
+          <div class="invalid-feedback">Link should be valid</div>
         </div>
 
         <div class="row">
@@ -44,7 +55,9 @@
               value="<%= listing.price%>"
               name="listing[price]"
               class="form-control"
+              required
             />
+            <div class="invalid-feedback">price should be valid</div>
           </div>
 
           <div class="mb-3 col-md-8">
@@ -54,7 +67,9 @@
               value="<%= listing.country%>"
               name="listing[country]"
               class="form-control"
+              required
             />
+            <div class="invalid-feedback">country name should be valid</div>
           </div>
         </div>
 
@@ -65,7 +80,9 @@
             value="<%= listing.location%>"
             name="listing[location]"
             class="form-control"
+            required
           />
+          <div class="invalid-feedback">Location should be valid</div>
         </div>
 
         <button class="btn btn-dark edit-btn mt-3">Edit</button>
