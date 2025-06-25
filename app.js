@@ -1,17 +1,13 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-// const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-// const wrapAsync = require("./utils/wrapAsync");
 const ExpressError = require("./utils/expressError.js");
-// const { listingSchema, reviewSchema } = require("./schema.js");
-// const Review = require("./models/review.js");
-
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
+const session = require("express-session");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wonderlust";
 main()
@@ -38,6 +34,14 @@ app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "/public")));
 
 app.engine("ejs", ejsMate);
+
+const sessionOptions = {
+  secret: "mysupersecretcode",
+  resave: false,
+  saveUninitialized: true,
+}
+
+app.use(session(sessionOptions));
 
 app.get("/", (req, res) => {
   res.send("Hi! i'm root");

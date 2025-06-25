@@ -9,7 +9,7 @@ const validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
 
   if (error) {
-    let errMsg = error.details.map((el) => el.message).join(",");
+    let errMsg = error.details.map((el) => el.message.join(","));
     throw new ExpressError(400, errMsg);
   } else {
     next();
@@ -107,7 +107,12 @@ router.put(
     // }
     let { id } = req.params;
     console.log(req.body.listing);
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    await Listing.findByIdAndUpdate(
+      id,
+      { ...req.body.listing },
+      { runValidators: true },
+      { new: true }
+    );
     res.redirect(`/listings/${id}`);
   })
 );
