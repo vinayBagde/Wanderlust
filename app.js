@@ -8,6 +8,7 @@ const ExpressError = require("./utils/expressError.js");
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
 const session = require("express-session");
+const flash = require("connect-flash");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wonderlust";
 main()
@@ -39,27 +40,25 @@ const sessionOptions = {
   secret: "mysupersecretcode",
   resave: false,
   saveUninitialized: true,
-}
+  cookie: {
+    expires: Date.now() * 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
 
 app.use(session(sessionOptions));
+app.use(flash());
 
 app.get("/", (req, res) => {
   res.send("Hi! i'm root");
 });
 
-// app.get("/testListing", async (req, res) => {
-//   let sampleListing = new Listing({
-//     title: "My new villa",
-//     description: "By the beach",
-//     price: 1200,
-//     location: "Calangute, Goa",
-//     country: "India",
-//   });
-
-//   await sampleListing.save();
-//   console.log("sample was saved");
-//   res.send("successful testing");
-// });
+app.use((req, res, next) => {
+  res.locals.successMsg = req.flash("success");
+  res.locals.errorMsg = req.flash("error");
+  next();
+})
 
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);

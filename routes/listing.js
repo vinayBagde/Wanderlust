@@ -30,49 +30,13 @@ router.get("/new", (req, res) => {
   res.render("listings/new.ejs");
 });
 
-//Create Route
-
-// ====> using try and catch
-// router.post("/listings", async (req, res, next) => {
-//   try {
-//     // let {title, description, price, country, location} = req.body;
-//     // let listing = req.body.listing;
-//     const newListing = new Listing(req.body.listing);
-//     console.log(req.body.listing);
-//     await newListing.save();
-//     res.redirect("/listings");
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
 router.post(
   "/",
   validateListing,
   wrapAsync(async (req, res, next) => {
-    // let {title, description, price, country, location} = req.body;
-    // let listing = req.body.listing;
-    //Validations
-    // if (!req.body.listing) {
-    //   throw new ExpressError(400, "sned valid data for listing");
-    // }
-    // if (!req.body.listing.title) {
-    //   throw new ExpressError(400, "Title is missing");
-    // }
-    // if (!req.body.listing.description) {
-    //   throw new ExpressError(400, "Description is missing");
-    // }
-    // if (!req.body.listing.price) {
-    //   throw new ExpressError(400, "price is missing");
-    // }
-    // Schema Validation
-    // let result = listingSchema.validate(req.body);
-    // console.log(result);
-    // if (result.error) {
-    //   throw new ExpressError(400, result.error);
-    // }
     const newListing = new Listing(req.body.listing);
     await newListing.save();
+    req.flash("success", "New Listing Created!");
     res.redirect("/listings");
   })
 );
@@ -83,6 +47,10 @@ router.get(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id).populate("reviews");
+    if (!listing) {
+      req.flash("error", "Listing you requested for does not exist!");
+      res.redirect("/listings");
+    }
     res.render("listings/show.ejs", { listing });
   })
 );
@@ -93,6 +61,10 @@ router.get(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
+    if (!listing) {
+      req.flash("error", "Listing you requested for does not exist!");
+      res.redirect("/listings");
+    }
     res.render("listings/edit.ejs", { listing });
   })
 );
@@ -102,9 +74,6 @@ router.put(
   "/:id",
   validateListing,
   wrapAsync(async (req, res) => {
-    // if (!req.body.listing) {
-    //   throw new ExpressError(400, "sned valid data for listing");
-    // }
     let { id } = req.params;
     console.log(req.body.listing);
     await Listing.findByIdAndUpdate(
@@ -113,6 +82,7 @@ router.put(
       { runValidators: true },
       { new: true }
     );
+    req.flash("success", "Listing Updated!");
     res.redirect(`/listings/${id}`);
   })
 );
@@ -123,6 +93,7 @@ router.delete(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id);
+    req.flash("success", "Listing Deleted!");
     console.log(deletedListing);
     res.redirect("/listings");
   })
