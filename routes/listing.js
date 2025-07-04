@@ -57,7 +57,7 @@ router.get(
   })
 );
 
-//Edit Route
+//Edit Route   -- render a form with listing
 router.get(
   "/:id/edit",
   isLoggedIn,
