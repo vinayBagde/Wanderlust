@@ -13,7 +13,7 @@ router
     wrapAsync(listingController.createListing)
   );
 
-  //New Route      ---CREATE
+//New Route      ---CREATE
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
 router
@@ -25,14 +25,7 @@ router
     validateListing,
     wrapAsync(listingController.updateListing)
   )
-  .delete(
-    isLoggedIn,
-    isOwner,
-    wrapAsync(listingController.destroyListing)
-  );
-
-
-
+  .delete(isLoggedIn, isOwner, wrapAsync(listingController.destroyListing));
 
 //Edit Route   -- render a form with listing
 router.get(
@@ -41,9 +34,5 @@ router.get(
   isOwner,
   wrapAsync(listingController.renderEditForm)
 );
-
-
-
-
 
 module.exports = router;
