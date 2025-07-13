@@ -1,4 +1,5 @@
 const Listing = require("../models/listing");
+const mapToken = process.env.MAP_TOKEN;
 
 module.exports.index = async (req, res) => {
   const allListings = await Listing.find();
@@ -16,6 +17,16 @@ module.exports.createListing = async (req, res) => {
   newListing.owner = req.user._id;
   newListing.image = { filename, url };
   console.log(newListing);
+  fetch(
+    `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(
+      req.body.listing.location
+    )}&apiKey=${mapToken}`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      const { lat, lon } = data.features[0].properties;
+      console.log(lat, lon);
+    });
   await newListing.save();
   req.flash("success", "New Listing Created!");
   res.redirect("/listings");
