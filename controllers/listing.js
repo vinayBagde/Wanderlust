@@ -17,16 +17,22 @@ module.exports.createListing = async (req, res) => {
   newListing.owner = req.user._id;
   newListing.image = { filename, url };
   console.log(newListing);
-  fetch(
+
+  const response = await fetch(
     `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(
       req.body.listing.location
     )}&apiKey=${mapToken}`
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      const { lat, lon } = data.features[0].properties;
-      console.log(lat, lon);
-    });
+  );
+  const data = await response.json();
+  const coords = data.features[0].geometry.coordinates;
+  console.log(coords);
+  const geoJson = {
+    type: "Point",
+    coordinates: coords,
+  };
+  newListing.geometry = geoJson;
+
+  console.log(newListing);
   await newListing.save();
   req.flash("success", "New Listing Created!");
   res.redirect("/listings");
