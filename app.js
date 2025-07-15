@@ -66,9 +66,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get("/", (req, res) => {
-  res.send("Hi! i'm root");
-});
 
 app.use((req, res, next) => {
   res.locals.successMsg = req.flash("success");
