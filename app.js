@@ -19,7 +19,8 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const dbURL = process.env.ATLASDB_URL;
 main()
   .then(() => {
     console.log("connection successfull");
@@ -29,7 +30,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbURL);
 }
 
 app.set("view engine", "ejs");
@@ -84,7 +85,7 @@ app.all("*", (req, res, next) => {
 
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "something went wrong!" } = err;
-  res.status(statusCode).render("listings/error.ejs", { err });
+  res.status(statusCode).render("listings/error.ejs", { message });
 });
 
 app.listen(8080, () => {
