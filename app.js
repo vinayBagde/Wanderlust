@@ -2,7 +2,6 @@ if (process.env.NOVE_ENV != "production") {
   require("dotenv").config();
 }
 
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -20,7 +19,6 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
-// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const dbUrl = process.env.ATLASDB_URL;
 main()
   .then(() => {
@@ -47,22 +45,20 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 app.engine("ejs", ejsMate);
 
-
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   crypto: {
-    secret: "mysupersecretcode",
+    secret: process.env.SECRET,
   },
   touchAfter: 24 * 3600,
 });
 
-
 store.on("error", () => {
   console.log("error in mongo session store", err);
-})
+});
 const sessionOptions = {
   store,
-  secret: "mysupersecretcode",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -71,8 +67,6 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
-
-
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -83,7 +77,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
 
 app.use((req, res, next) => {
   res.locals.successMsg = req.flash("success");
