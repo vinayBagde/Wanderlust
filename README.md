@@ -5,7 +5,7 @@ _Wanderlust is a full-stack web application for exploring and managing travel li
 
 | _Desktop Preview_                                   |
 | ----------------------------------------------------------- |
-| ![Mobile](/public/img/site-preview-mobile_375x812.png)      |
+| ![Desktop](/public/img/homePage.png)      |
 
 ---
 ## 📑 Table of Contents
