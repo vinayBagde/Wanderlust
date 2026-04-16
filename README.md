@@ -11,12 +11,11 @@ _Wanderlust is a full-stack web application for exploring and managing travel li
 ## 📑 Table of Contents
 
 - [📖 Overview](#-overview)
-- [🎥 Live Demo](#-live-demo)
 - [✨ Features](#-features)
 - [🛠️ Tech Stack](#-tech-stack)
 - [📂 Project Structure](#-project-structure)
-- [Installation & Setup](#-installation--setup)
-- [Environment Variables](#-environment-variables)
+- [⚙️ Installation & Setup](#-installation--setup)
+- [🎥 Live Demo](#-live-demo)
 - [👤 Author & Contact](#-author--contact)
 
 ---
@@ -26,15 +25,6 @@ _Wanderlust is a full-stack web application for exploring and managing travel li
    Wanderlust is a full-stack web application designed for exploring and managing travel listings. Users can browse destinations, create and manage listings, and upload images with ease.
 
    The application follows the MVC architecture and is built using Node.js, Express.js, MongoDB, and EJS, with Cloudinary integration for image storage. It provides a smooth and dynamic user experience through server-side rendering and structured backend logic.
-
----
-
-## 🎥 Live Demo
-
-   Wanderlust is deployed and accessible online. You can explore the application using the link below.
-
-   https://your-live-demo-link.com
-
 
 ---
 
@@ -130,9 +120,52 @@ WANDERLUST/
 ├── package-lock.json
 └── README.md
 ```
+
+---
+## ⚙️ Installation & Setup
+
+   Follow these steps to run the project locally:
+
+   1. Clone the repository
+      ```sh
+      git clone https://github.com/vinayBagde/Wanderlust.git
+      cd wanderlust
+      ```
+
+   2. Install dependencies
+      ```sh
+      npm install
+      ```
+
+   3. Setup environment variables
+
+      Create a `.env` file in the root directory and add:
+      ```sh
+      ATLASDB_URL=your_mongodb_connection_string
+      SECRET=your_session_secret
+      CLOUD_NAME=your_cloudinary_name
+      CLOUD_API_KEY=your_cloudinary_key
+      CLOUD_API_SECRET=your_cloudinary_secret
+      MAP_TOKEN=your_map_api_token
+      ```
+
+   4. Run the server
+      ```sh
+      node app.js
+      ```
+
+   5. Open in browser
+      ```sh
+      http://localhost:8080
+      ```
+
 ---
 
-## ⚙️ Installation & Setup
+## 🎥 Live Demo
+
+   Wanderlust is deployed and accessible online. You can explore the application using the link below.
+
+   https://wanderlust-cw2p.onrender.com/listings
 
 ---
 
