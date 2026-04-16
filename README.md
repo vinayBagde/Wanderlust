@@ -12,9 +12,9 @@ _Wanderlust is a full-stack web application for exploring and managing travel li
 
 - [📖 Overview](#-overview)
 - [✨ Features](#-features)
-- [🛠️ Tech Stack](#-tech-stack)
+- [🛠️ Tech Stack](#tech-stack)
 - [📂 Project Structure](#-project-structure)
-- [⚙️ Installation & Setup](#-installation--setup)
+- [⚙️ Installation & Setup](#installation--setup)
 - [🎥 Live Demo](#-live-demo)
 - [👤 Author & Contact](#-author--contact)
 
@@ -41,7 +41,8 @@ _Wanderlust is a full-stack web application for exploring and managing travel li
 
 ---
 
-## 🛠️ Tech Stack
+
+## Tech Stack
 
    Frontend: EJS (Embedded JavaScript Templates), Bootstrap, Google Fonts, and Font Awesome
 
@@ -122,7 +123,8 @@ WANDERLUST/
 ```
 
 ---
-## ⚙️ Installation & Setup
+
+## Installation & Setup
 
    Follow these steps to run the project locally:
 
