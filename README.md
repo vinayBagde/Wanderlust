@@ -1,4 +1,4 @@
-# 🌍 Wanderlust - Find, list, and review travel stays all in one place.!
+# 🌍 Wanderlust - Find, list, and review travel stays all in one place!
 _Wanderlust is a full-stack web application for exploring and managing travel listings, built using Node.js, Express.js, MongoDB, and EJS, with Cloudinary for image handling._
 
 ---
@@ -16,6 +16,7 @@ _Wanderlust is a full-stack web application for exploring and managing travel li
 - [📂 Project Structure](#-project-structure)
 - [⚙️ Installation & Setup](#installation--setup)
 - [🎥 Live Demo](#-live-demo)
+- [🧠 Key Learnings](#-key-learnings)
 - [👤 Author & Contact](#-author--contact)
 
 ---
@@ -59,8 +60,6 @@ _Wanderlust is a full-stack web application for exploring and managing travel li
 ## 📂 Project Structure
 
 ```
-## 📂 Project Structure
-
 WANDERLUST/
 ├── controllers/                # Handles core application logic (MVC Controller)
 │   ├── listing.js              # CRUD operations for listings
@@ -171,10 +170,17 @@ WANDERLUST/
 
 ---
 
+## 🧠 Key Learnings
+
+- Implemented authentication using Passport.js
+- Designed RESTful APIs using Express.js
+- Learned MVC architecture in real-world application
+- Integrated third-party services like Cloudinary and Map APIs
+---
 ## 👤 Author & Contact
 
 💻 **Vinay Bagde**  
-📧 Email: vinaybagde0@.com     
+📧 Email: vinaybagde0@gmail.com     
 🔗 [GitHub](https://github.com/vinayBagde)        
 💼 [LinkedIn](https://www.linkedin.com/in/vinay-bagde/)  
 
